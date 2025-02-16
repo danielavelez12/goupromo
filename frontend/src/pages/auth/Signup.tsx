@@ -7,25 +7,35 @@ import {
   SubmitButton,
 } from "../../components/StyledForm";
 import { toaster } from "../../components/ui/toaster";
-import { useAuth } from "../../context/AuthContext";
 
-interface LoginProps {
+interface SignupProps {
   isOpen: boolean;
   onClose: () => void;
 }
 
-function Login({ isOpen, onClose }: LoginProps) {
+function Signup({ isOpen, onClose }: SignupProps) {
   const [formData, setFormData] = useState({
     username: "",
     password: "",
+    first_name: "",
+    last_name: "",
+    email: "",
+    phone_number: "",
+    city: "",
+    user_type: "customer",
   });
   const [touched, setTouched] = useState({
     username: false,
     password: false,
+    first_name: false,
+    last_name: false,
+    email: false,
+    phone_number: false,
+    city: false,
   });
+  const [userId, setUserId] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
-  const { login } = useAuth();
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -49,7 +59,7 @@ function Login({ isOpen, onClose }: LoginProps) {
 
     try {
       const response = await fetch(
-        `${import.meta.env.VITE_API_BASE_URL}/login`,
+        `${import.meta.env.VITE_API_BASE_URL}/signup`,
         {
           method: "POST",
           headers: {
@@ -62,33 +72,19 @@ function Login({ isOpen, onClose }: LoginProps) {
       const data = await response.json();
 
       if (!response.ok) {
-        throw new Error(data.detail || "Error logging in");
+        throw new Error(data.detail || "Error signing up");
       }
 
-      login(data.access_token, {
-        username: data.username,
-        first_name: data.first_name,
-        last_name: data.last_name,
-        email: data.email,
-        phone_number: data.phone_number,
-        city: data.city,
-        user_type: data.user_type,
-        id: data.id,
-      });
-
       toaster.create({
-        title: "Login successful",
+        title: "Account created successfully",
         variant: "success",
         duration: 3000,
       });
-
-      onClose();
-      navigate("/dashboard");
     } catch (error) {
       toaster.create({
         title: "Error",
         description: error.message,
-        variant: "destructive",
+        variant: "error",
         duration: 3000,
       });
     } finally {
@@ -97,7 +93,7 @@ function Login({ isOpen, onClose }: LoginProps) {
   };
 
   return (
-    <AuthModal isOpen={isOpen} onClose={onClose} title="Iniciar sesión">
+    <AuthModal isOpen={isOpen} onClose={onClose} title="Registro">
       <form onSubmit={handleSubmit}>
         <FormStack>
           <StyledFormField
@@ -121,18 +117,70 @@ function Login({ isOpen, onClose }: LoginProps) {
             isInvalid={touched.password && !formData.password}
           />
 
+          <StyledFormField
+            label="Nombre"
+            name="first_name"
+            value={formData.first_name}
+            onChange={handleChange}
+            onBlur={handleBlur}
+            isRequired
+            isInvalid={touched.first_name && !formData.first_name}
+          />
+
+          <StyledFormField
+            label="Apellido"
+            name="last_name"
+            value={formData.last_name}
+            onChange={handleChange}
+            onBlur={handleBlur}
+            isRequired
+            isInvalid={touched.last_name && !formData.last_name}
+          />
+
+          <StyledFormField
+            label="Email"
+            inputType="email"
+            name="email"
+            value={formData.email}
+            onChange={handleChange}
+            onBlur={handleBlur}
+            isRequired
+            isInvalid={touched.email && !formData.email}
+          />
+
+          <StyledFormField
+            label="Teléfono"
+            name="phone_number"
+            value={formData.phone_number}
+            onChange={handleChange}
+            onBlur={handleBlur}
+            isRequired
+            isInvalid={touched.phone_number && !formData.phone_number}
+          />
+
+          <StyledFormField
+            label="Ciudad"
+            name="city"
+            value={formData.city}
+            onChange={handleChange}
+            onBlur={handleBlur}
+            isRequired
+            isInvalid={touched.city && !formData.city}
+          />
+
           <SubmitButton
             type="submit"
             colorScheme="brand"
             size="lg"
             loading={isLoading}
           >
-            Ingresar
+            Crear cuenta
           </SubmitButton>
         </FormStack>
       </form>
+      )
     </AuthModal>
   );
 }
 
-export default Login;
+export default Signup;

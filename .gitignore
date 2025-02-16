@@ -22,3 +22,10 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+# Project specific
+backend/.env
+backend/__pycache__/
+backend/seed.py
+doc.txt
+frontend/.env

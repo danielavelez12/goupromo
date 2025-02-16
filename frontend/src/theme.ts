@@ -10,11 +10,26 @@ const customConfig = defineConfig({
         green: {
           value: "#BBEA71",
         },
+        darkGreen: {
+          value: "#02542D",
+        },
         white: {
           value: "#FFFFFF",
         },
         hoverWhite: {
           value: "#E9E9E9",
+        },
+        lightGreen: {
+          value: "#F1F5EA",
+        },
+        gray: {
+          value: "#D9D9D9",
+        },
+        lightGray: {
+          value: "#F4F6F6",
+        },
+        black: {
+          value: "#000000",
         },
       },
     },

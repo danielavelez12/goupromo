@@ -3,7 +3,7 @@ import React from "react";
 
 interface CustomButtonProps extends ButtonProps {
   children: React.ReactNode;
-  customVariant?: "primary" | "secondary" | "link";
+  customVariant?: "primary" | "secondary" | "linkLight" | "linkDark";
 }
 
 const styleMap = {
@@ -17,9 +17,14 @@ const styleMap = {
     color: "black",
     hoverBg: "hoverWhite",
   },
-  link: {
+  linkLight: {
     bg: "transparent",
     color: "white",
+    hoverBg: "transparent",
+  },
+  linkDark: {
+    bg: "transparent",
+    color: "black",
     hoverBg: "transparent",
   },
 };
