@@ -10,10 +10,10 @@ const styleMap = {
   primary: {
     bg: "green",
     color: "darkTeal",
-    hoverBg: "tealHover",
+    hoverBg: "lightGreen",
   },
   secondary: {
-    bg: "white",
+    bg: "lightGray",
     color: "black",
     hoverBg: "hoverWhite",
   },
@@ -45,6 +45,7 @@ const Button: React.FC<CustomButtonProps> = ({
         bg: styleMap[customVariant].hoverBg,
       }}
       transition="ease-in 0.2s"
+      cursor="pointer"
       {...props}
     >
       {children}

@@ -61,7 +61,7 @@ function RestaurantRegister({ isOpen, onClose }: RestaurantRegisterProps) {
       toaster.create({
         title: "Error",
         description: "Debes iniciar sesión primero",
-        variant: "error",
+        type: "error",
         duration: 3000,
       });
       return;
@@ -91,18 +91,19 @@ function RestaurantRegister({ isOpen, onClose }: RestaurantRegisterProps) {
       toaster.create({
         title: "¡Registro exitoso!",
         description: "Tu restaurante ha sido registrado correctamente",
-        variant: "success",
+        type: "success",
         duration: 3000,
       });
 
       onClose();
       navigate("/dashboard");
+      window.location.reload();
     } catch (error) {
       toaster.create({
         title: "Error",
         description:
           error instanceof Error ? error.message : "Error desconocido",
-        variant: "error",
+        type: "error",
         duration: 3000,
       });
     } finally {

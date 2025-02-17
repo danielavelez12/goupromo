@@ -77,7 +77,7 @@ function RestaurantSignup({ isOpen, onClose }: RestaurantSignupProps) {
 
       toaster.create({
         title: "Restaurant registered successfully",
-        variant: "success",
+        type: "success",
         duration: 3000,
       });
 
@@ -87,7 +87,7 @@ function RestaurantSignup({ isOpen, onClose }: RestaurantSignupProps) {
       toaster.create({
         title: "Error",
         description: error.message,
-        variant: "error",
+        type: "error",
         duration: 3000,
       });
     } finally {

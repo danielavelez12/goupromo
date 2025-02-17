@@ -5,7 +5,7 @@ const customConfig = defineConfig({
     tokens: {
       colors: {
         teal: { value: "#285E61" },
-        tealHover: { value: "#DDFFA8" },
+        lightGreen: { value: "#DDFFA8" },
         darkTeal: { value: "#003032" },
         green: {
           value: "#BBEA71",
@@ -19,17 +19,20 @@ const customConfig = defineConfig({
         hoverWhite: {
           value: "#E9E9E9",
         },
-        lightGreen: {
+        extraLightGreen: {
           value: "#F1F5EA",
         },
         gray: {
           value: "#D9D9D9",
         },
         lightGray: {
-          value: "#F4F6F6",
+          value: "#f7f7f7",
         },
         black: {
           value: "#000000",
+        },
+        darkGray: {
+          value: "#4E4E4E",
         },
       },
     },

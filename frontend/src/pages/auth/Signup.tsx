@@ -11,9 +11,10 @@ import { toaster } from "../../components/ui/toaster";
 interface SignupProps {
   isOpen: boolean;
   onClose: () => void;
+  onSignupSuccess: () => void;
 }
 
-function Signup({ isOpen, onClose }: SignupProps) {
+function Signup({ isOpen, onClose, onSignupSuccess }: SignupProps) {
   const [formData, setFormData] = useState({
     username: "",
     password: "",
@@ -77,14 +78,16 @@ function Signup({ isOpen, onClose }: SignupProps) {
 
       toaster.create({
         title: "Account created successfully",
-        variant: "success",
+        type: "success",
         duration: 3000,
       });
+      onClose();
+      onSignupSuccess();
     } catch (error) {
       toaster.create({
         title: "Error",
-        description: error.message,
-        variant: "error",
+        description: error instanceof Error ? error.message : "Unknown error",
+        type: "error",
         duration: 3000,
       });
     } finally {
@@ -178,7 +181,6 @@ function Signup({ isOpen, onClose }: SignupProps) {
           </SubmitButton>
         </FormStack>
       </form>
-      )
     </AuthModal>
   );
 }

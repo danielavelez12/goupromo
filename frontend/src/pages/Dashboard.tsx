@@ -35,10 +35,10 @@ const UserStatCard = ({ label, value }: UserStats) => {
   return (
     <Box p={6} borderRadius="lg" shadow="md">
       <Stat.Root>
-        <Stat.Label fontSize="sm" color="gray.500">
+        <Stat.Label fontSize="sm" color="black">
           {label}
         </Stat.Label>
-        <Stat.ValueText fontSize="2xl" fontWeight="bold">
+        <Stat.ValueText fontSize="2xl" fontWeight="bold" color="black">
           {formatValue(value)}
         </Stat.ValueText>
       </Stat.Root>
@@ -98,15 +98,18 @@ const Dashboard: React.FC = () => {
         <InfoCard title="Perfíl">
           <Grid templateColumns={{ base: "1fr", md: "auto 1fr" }} gap={6}>
             <Avatar.Root size="xl">
-              <Avatar.Fallback name={`${user.first_name} ${user.last_name}`} />
+              <Avatar.Fallback
+                color="black"
+                name={`${user.first_name} ${user.last_name}`}
+              />
             </Avatar.Root>
             <VStack align="start" spaceY={2}>
               <Heading size="lg">
                 {user.first_name} {user.last_name}
               </Heading>
-              <Text color="gray.600">{user.email}</Text>
-              <Text color="gray.600">{user.phone_number}</Text>
-              <Text color="gray.600">{user.city}</Text>
+              <Text color="black">{user.email}</Text>
+              <Text color="black">{user.phone_number}</Text>
+              <Text color="black">{user.city}</Text>
             </VStack>
           </Grid>
         </InfoCard>

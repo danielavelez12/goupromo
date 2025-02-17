@@ -1,7 +1,14 @@
-import { Badge, Box, Flex, Image, Text, VStack } from "@chakra-ui/react";
+import {
+  Badge,
+  Flex,
+  Image,
+  Text,
+  useBreakpointValue,
+  VStack,
+} from "@chakra-ui/react";
+import QuantityControls from "./QuantityControls";
 
 interface ItemCardProps {
-  name: string;
   description: string;
   original_price: number;
   offer_price: number;
@@ -10,10 +17,11 @@ interface ItemCardProps {
   city: string;
   logo_url: string;
   website_url: string;
+  shoppingCartQuantity?: number;
+  onUpdateQuantity: (newQuantity: number) => void;
 }
 
 const ItemCard = ({
-  name,
   description,
   original_price,
   offer_price,
@@ -22,14 +30,19 @@ const ItemCard = ({
   city,
   logo_url,
   website_url,
+  shoppingCartQuantity = 0,
+  onUpdateQuantity,
 }: ItemCardProps) => {
+  const isMobile = useBreakpointValue({ base: true, md: false });
+  console.log("cart items in itemcard ", shoppingCartQuantity);
   return (
-    <Box
-      maxW="sm"
+    <Flex
       borderWidth={1}
       borderRadius={8}
       overflow="hidden"
       borderColor="gray"
+      flexDirection="column"
+      justify="space-between"
     >
       <Image
         src={image_url}
@@ -40,7 +53,7 @@ const ItemCard = ({
       />
       <VStack p={4} align="start" spaceY={2}>
         <Flex justify="space-between" width="100%">
-          <Text fontSize="xl" fontWeight="semibold">
+          <Text fontSize="xl" fontWeight="semibold" color="black">
             {restaurant_name}
           </Text>
           <Flex align="center" gap={2}>
@@ -56,7 +69,7 @@ const ItemCard = ({
             </Badge>
           </Flex>
         </Flex>
-        <Text color="gray.600">{description}</Text>
+        <Text color="black">{description}</Text>
         <Flex align="center" gap={2}>
           {logo_url && (
             <Image
@@ -66,12 +79,18 @@ const ItemCard = ({
               borderRadius="full"
             />
           )}
-          <Text fontSize="sm" color="gray.500">
+          <Text fontSize="sm" color="black">
             {restaurant_name} • {city}
           </Text>
         </Flex>
       </VStack>
-    </Box>
+      <Flex width="100%" justify={isMobile ? "center" : "flex-end"} p={4}>
+        <QuantityControls
+          quantity={shoppingCartQuantity}
+          onUpdateQuantity={onUpdateQuantity}
+        />
+      </Flex>
+    </Flex>
   );
 };
 

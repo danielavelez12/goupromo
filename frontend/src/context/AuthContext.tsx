@@ -1,5 +1,6 @@
 import { createContext, useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { useCart } from "./CartContext";
 
 interface User {
   username: string;
@@ -29,6 +30,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   const [user, setUser] = useState<User | null>(null);
   const [isAuthenticated, setIsAuthenticated] = useState<boolean>(!!token);
   const navigate = useNavigate();
+  const { clearCart } = useCart();
 
   const login = (newToken: string, userData: User) => {
     localStorage.setItem("token", newToken);
@@ -44,6 +46,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     setToken(null);
     setUser(null);
     setIsAuthenticated(false);
+    clearCart();
     navigate("/");
   };
 

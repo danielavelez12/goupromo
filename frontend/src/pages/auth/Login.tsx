@@ -78,7 +78,7 @@ function Login({ isOpen, onClose }: LoginProps) {
 
       toaster.create({
         title: "Login successful",
-        variant: "success",
+        type: "success",
         duration: 3000,
       });
 
@@ -87,8 +87,8 @@ function Login({ isOpen, onClose }: LoginProps) {
     } catch (error) {
       toaster.create({
         title: "Error",
-        description: error.message,
-        variant: "destructive",
+        description: error instanceof Error ? error.message : "Unknown error",
+        type: "destructive",
         duration: 3000,
       });
     } finally {

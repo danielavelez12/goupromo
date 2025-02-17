@@ -10,16 +10,17 @@ const InfoCard: React.FC<InfoCardProps> = ({ title, children }) => {
   return (
     <Box>
       {title && (
-        <Box bg="lightGreen" p={4} borderTopRadius={8}>
+        <Box bg="extraLightGreen" p={4} borderTopRadius={8}>
           <Heading size="md" color="black">
             {title}
           </Heading>
         </Box>
       )}
       <Box
+        color="black"
         p={6}
         borderWidth={1}
-        borderColor="lightGreen"
+        borderColor="extraLightGreen"
         borderBottomRadius={8}
       >
         {children}

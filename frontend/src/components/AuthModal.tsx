@@ -53,6 +53,7 @@ const ModalHeader = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
+  color: black;
 `;
 
 const CloseButton = styled.button`

@@ -10,7 +10,7 @@ import Button from "./Button";
 // Styled components
 export const StyledInput = styled(Input)`
   border: 0;
-  background-color: #f7f7f7; // lightGray
+  color: black;
   &:focus {
     ring-color: teal;
   }
@@ -24,6 +24,7 @@ export const StyledFormLabel = styled(FormLabel)`
   font-size: 14px;
   font-weight: 600;
   margin-bottom: 8px;
+  color: black;
 `;
 
 export const FormStack = styled(VStack)`
@@ -68,6 +69,7 @@ export const StyledFormField = ({
         value={value}
         onChange={onChange}
         onBlur={onBlur}
+        backgroundColor="lightGray"
       />
       {isInvalid && (
         <FormErrorMessage fontSize={12} color="red">
