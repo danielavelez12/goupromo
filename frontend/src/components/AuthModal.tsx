@@ -43,6 +43,13 @@ const ModalContent = styled.div`
   max-width: 500px;
   position: relative;
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+
+  @media (max-width: 768px) {
+    width: 100%;
+    height: 100%;
+    max-width: none;
+    border-radius: 0;
+  }
 `;
 
 const ModalHeader = styled.div`
@@ -54,6 +61,10 @@ const ModalHeader = styled.div`
   justify-content: space-between;
   align-items: center;
   color: black;
+
+  @media (max-width: 768px) {
+    padding: 1.5rem;
+  }
 `;
 
 const CloseButton = styled.button`
@@ -72,6 +83,12 @@ const CloseButton = styled.button`
 
 const ModalBody = styled.div`
   padding: 1.5rem;
+
+  @media (max-width: 768px) {
+    padding: 2rem;
+    height: calc(100% - 70px); /* Subtract header height */
+    overflow-y: auto;
+  }
 `;
 
 export default AuthModal;

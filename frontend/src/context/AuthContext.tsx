@@ -48,6 +48,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     setIsAuthenticated(false);
     clearCart();
     navigate("/");
+    window.location.reload();
   };
 
   useEffect(() => {
