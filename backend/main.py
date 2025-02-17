@@ -235,9 +235,7 @@ async def signup(user: UserCreate):
             # Check if username already exists
             cur.execute("SELECT id FROM users WHERE username = %s", (user.username,))
             if cur.fetchone():
-                raise HTTPException(
-                    status_code=400, detail="Username already registered"
-                )
+                raise HTTPException(status_code=400, detail="El usuario ya existe")
 
             hashed_password = get_password_hash(user.password)
             query = """
@@ -270,7 +268,7 @@ async def login(user_credentials: UserLogin):
     if not user:
         raise HTTPException(
             status_code=401,
-            detail="Incorrect username or password",
+            detail="Usuario o contraseña incorrectos",
             headers={"WWW-Authenticate": "Bearer"},
         )
     access_token = create_access_token(data={"sub": user["username"]})

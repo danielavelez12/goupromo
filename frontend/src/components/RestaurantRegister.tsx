@@ -57,6 +57,34 @@ function RestaurantRegister({ isOpen, onClose }: RestaurantRegisterProps) {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
+    // Check if any required field is empty
+    const requiredFields = [
+      "name",
+      "address",
+      "contact_person",
+      "phone",
+      "email",
+      "city",
+    ];
+    const emptyFields = requiredFields.filter(
+      (field) => !formData[field as keyof typeof formData]
+    );
+
+    if (emptyFields.length > 0) {
+      toaster.create({
+        title: "Error",
+        description: "Por favor complete todos los campos requeridos",
+        type: "error",
+        duration: 3000,
+      });
+      // Mark all empty fields as touched to show validation errors
+      setTouched((prev) => ({
+        ...prev,
+        ...Object.fromEntries(emptyFields.map((field) => [field, true])),
+      }));
+      return;
+    }
+
     if (!user) {
       toaster.create({
         title: "Error",
