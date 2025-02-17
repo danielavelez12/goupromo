@@ -77,7 +77,7 @@ const HeroHeader = () => {
         </Heading>
         <Text
           color="white"
-          fontSize={{ base: "md", md: "lg", lg: "xl" }}
+          fontSize={{ base: "lg", md: "lg", lg: "xl" }}
           fontWeight={400}
         >
           Bolsas de sorpresa y más de los locales alrededor de ti.
