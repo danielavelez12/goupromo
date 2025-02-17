@@ -6,10 +6,14 @@ import {
   Heading,
   Stat,
   Text,
+  useDisclosure,
   VStack,
 } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
+import AddItemModal from "../components/AddItemModal";
+import Button from "../components/Button";
 import InfoCard from "../components/InfoCard";
+import ItemCard from "../components/ItemCard";
 import LoadingSpinner from "../components/LoadingSpinner";
 import { useAuth } from "../context/AuthContext";
 
@@ -49,7 +53,10 @@ const UserStatCard = ({ label, value }: UserStats) => {
 const Dashboard: React.FC = () => {
   const { user } = useAuth();
   const [restaurant, setRestaurant] = useState<any>(null);
-  const [isLoading, setIsLoading] = useState(true);
+  const [restaurantLoading, setIsLoading] = useState(true);
+  const [itemsLoading, setItemsLoading] = useState(true);
+  const [items, setItems] = useState<any[]>([]);
+  const { open, onOpen, onClose } = useDisclosure();
 
   useEffect(() => {
     setIsLoading(true);
@@ -61,6 +68,7 @@ const Dashboard: React.FC = () => {
           );
           if (response.ok) {
             const data = await response.json();
+            console.log("Restaurant data:", data);
             setRestaurant(data);
           }
         } catch (error) {
@@ -74,7 +82,30 @@ const Dashboard: React.FC = () => {
     fetchRestaurantData();
   }, [user]);
 
-  if (!user || isLoading) {
+  useEffect(() => {
+    setItemsLoading(true);
+    const fetchItems = async () => {
+      if (restaurant) {
+        try {
+          const response = await fetch(
+            `${import.meta.env.VITE_API_BASE_URL}/items/restaurant/${restaurant.id}`
+          );
+          if (response.ok) {
+            const data = await response.json();
+            setItems(data);
+          }
+        } catch (error) {
+          console.error("Error fetching items:", error);
+        } finally {
+          setItemsLoading(false);
+        }
+      }
+    };
+
+    fetchItems();
+  }, [restaurant]);
+
+  if (!user || restaurantLoading || itemsLoading) {
     return (
       <Container maxW="container.xl" py={10}>
         <LoadingSpinner />
@@ -90,6 +121,10 @@ const Dashboard: React.FC = () => {
     { label: "Food Saved (kg)", value: "45" },
     { label: "CO2 Reduced (kg)", value: "89" },
   ];
+
+  const handleUpdateQuantity = () => {
+    // This is just a placeholder since we don't need this functionality in the dashboard
+  };
 
   return (
     <Container maxW="container.xl" py={10}>
@@ -144,6 +179,30 @@ const Dashboard: React.FC = () => {
           </InfoCard>
         )}
 
+        {restaurant && (
+          <InfoCard title="Ofertas">
+            <Button onClick={onOpen} mb={4}>
+              Agregar nuevo item
+            </Button>
+            <Grid
+              templateColumns={{
+                base: "1fr",
+                md: "repeat(2, 1fr)",
+                lg: "repeat(3, 1fr)",
+              }}
+              gap={6}
+            >
+              {items.map((item) => (
+                <ItemCard
+                  key={item.id}
+                  {...item}
+                  onUpdateQuantity={handleUpdateQuantity}
+                />
+              ))}
+            </Grid>
+          </InfoCard>
+        )}
+
         {/* Statistics Grid - Only shown for restaurants */}
         {restaurant && (
           <InfoCard title="Estadísticas">
@@ -166,6 +225,12 @@ const Dashboard: React.FC = () => {
           </InfoCard>
         )}
       </VStack>
+
+      <AddItemModal
+        isOpen={open}
+        onClose={onClose}
+        restaurantId={restaurant?.id}
+      />
     </Container>
   );
 };

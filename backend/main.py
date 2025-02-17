@@ -38,6 +38,7 @@ class Item(BaseModel):
     delivery_included: bool
     delivery_fee: int
     status: str
+    restaurant_id: Optional[str] = None
 
 
 class Restaurant(BaseModel):
@@ -125,8 +126,8 @@ async def add_item(item: Item) -> dict:
                 INSERT INTO public.items (
                     item_type, description, item_number, original_price,
                     offer_price, quantity, start_time, end_time, image_url,
-                    unit_weight, delivery_included, delivery_fee, status
-                ) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
+                    unit_weight, delivery_included, delivery_fee, status, restaurant_id
+                ) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
                 RETURNING *
             """
             values = (
@@ -143,6 +144,7 @@ async def add_item(item: Item) -> dict:
                 item.delivery_included,
                 item.delivery_fee,
                 item.status,
+                item.restaurant_id,
             )
             cur.execute(query, values)
             conn.commit()
@@ -188,10 +190,40 @@ async def get_restaurants():
 
 @app.post("/items", response_model=dict)
 async def create_item(item: Item):
+    print("Received item data:", item.model_dump_json(indent=2))
     try:
         return await add_item(item)
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
+
+
+@app.get("/items/restaurant/{restaurant_id}")
+async def get_items_by_restaurant(restaurant_id: str):
+    conn = get_db_connection()
+    try:
+        with conn.cursor() as cur:
+            cur.execute(
+                """
+                SELECT 
+                    i.*,
+                    r.name as restaurant_name,
+                    r.website_url,
+                    r.primary_address,
+                    r.primary_contact,
+                    r.phone_number as restaurant_phone,
+                    r.email as restaurant_email,
+                    r.city,
+                    r.logo_url
+                FROM public.items i
+                LEFT JOIN public.restaurants r ON i.restaurant_id = r.id
+                WHERE i.restaurant_id = %s
+                """,
+                (restaurant_id,),
+            )
+            items = cur.fetchall()
+            return [dict(item) for item in items]
+    finally:
+        conn.close()
 
 
 # Helper functions
