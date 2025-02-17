@@ -49,7 +49,7 @@ function Navbar() {
             Perfíl
           </Button>
           <Button onClick={logout} customVariant="linkLight">
-            Cerrar Sesión
+            Cerrar sesión
           </Button>
         </>
       ) : (
@@ -109,7 +109,7 @@ function Navbar() {
                       Perfíl
                     </MenuItem>
                     <MenuItem value="logout" onClick={logout}>
-                      Cerrar Sesión
+                      Cerrar sesión
                     </MenuItem>
                   </>
                 ) : (
@@ -133,7 +133,11 @@ function Navbar() {
       </Box>
 
       <Login isOpen={isLoginOpen} onClose={onLoginClose} />
-      <Signup isOpen={isSignupOpen} onClose={onSignupClose} onSignupSuccess={onLoginOpen} />
+      <Signup
+        isOpen={isSignupOpen}
+        onClose={onSignupClose}
+        onSignupSuccess={onLoginOpen}
+      />
       <RestaurantRegister
         isOpen={isRestaurantRegisterOpen}
         onClose={onRestaurantRegisterClose}
