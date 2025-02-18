@@ -26,7 +26,7 @@ const Footer = () => {
             <Heading size="md" mb={4}>
               GouPromo
             </Heading>
-            <Text color="gray">
+            <Text>
               Conectando restaurantes y consumidores para reducir el desperdicio
               de alimentos.
             </Text>
@@ -45,11 +45,11 @@ const Footer = () => {
             <Heading size="md" mb={4}>
               Contacto
             </Heading>
-            <Text color="gray">Email: info@goupromo.com</Text>
-            <Text color="gray">Tel: +34 900 123 456</Text>
+            <Text>Email: info@goupromo.com</Text>
+            <Text>Tel: +34 900 123 456</Text>
           </VStack>
         </SimpleGrid>
-        <Text color="gray" fontSize="sm" textAlign="center" mt={8}>
+        <Text fontSize="sm" textAlign="center" mt={8}>
           © {new Date().getFullYear()} Goupromo. Todos los derechos reservados.
         </Text>
       </Flex>

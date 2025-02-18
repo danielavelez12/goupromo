@@ -85,13 +85,8 @@ function Navbar() {
 
           {isMobile ? (
             <MenuRoot>
-              <MenuTrigger>
-                <IconButton
-                  aria-label="Options"
-                  as={Menu}
-                  variant="ghost"
-                  color="white"
-                />
+              <MenuTrigger backgroundColor="transparent">
+                <IconButton aria-label="Options" as={Menu} color="white" />
               </MenuTrigger>
               <MenuContent>
                 <MenuItem
