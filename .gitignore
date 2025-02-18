@@ -29,3 +29,4 @@ backend/__pycache__/
 backend/seed.py
 doc.txt
 frontend/.env
+.env.sentry-build-plugin
