@@ -18,6 +18,8 @@
     "@emotion/react": "^11.14.0",
     "@emotion/styled": "^11.14.0",
     "@react-spring/web": "^9.7.5",
+    "@sentry/react": "^9.1.0",
+    "@sentry/vite-plugin": "^3.1.2",
     "@tanstack/react-query": "^5.20.1",
     "@use-gesture/react": "^10.3.1",
     "framer-motion": "^12.4.3",
