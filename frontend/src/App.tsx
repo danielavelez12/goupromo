@@ -28,7 +28,7 @@ Sentry.init({
 
 const App: React.FC = () => {
   return (
-    <Sentry.ErrorBoundary fallback={<p>An error has occurred</p>}>
+    <Sentry.ErrorBoundary fallback={<p>Un error ha ocurrido</p>}>
       <ChakraProvider value={theme}>
         <BrowserRouter>
           <CartProvider>
