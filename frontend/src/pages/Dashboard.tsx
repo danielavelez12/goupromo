@@ -72,6 +72,7 @@ const Dashboard: React.FC = () => {
             setRestaurant(data);
           }
         } catch (error) {
+          setIsLoading(false);
           console.error("Error fetching restaurant data:", error);
         } finally {
           setIsLoading(false);
@@ -95,10 +96,13 @@ const Dashboard: React.FC = () => {
             setItems(data);
           }
         } catch (error) {
+          setItemsLoading(false);
           console.error("Error fetching items:", error);
         } finally {
           setItemsLoading(false);
         }
+      } else {
+        setItemsLoading(false);
       }
     };
 
